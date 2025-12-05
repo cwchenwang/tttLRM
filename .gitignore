@@ -1,0 +1,8 @@
+**/__pycache__/
+*.pth
+*.safetensors
+
+src/data_generation/data/  
+outputs/
+checkpoints/
+**/**DS_Store

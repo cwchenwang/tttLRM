@@ -1,0 +1,325 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+  <meta charset="utf-8">
+  <!-- Meta tags for social media banners, these should be filled in appropriatly as they are your "business card" -->
+  <!-- Replace the content tag with appropriate information -->
+  <meta name="description" content="DESCRIPTION META TAG">
+  <meta property="og:title" content="SOCIAL MEDIA TITLE TAG" />
+  <meta property="og:description" content="SOCIAL MEDIA DESCRIPTION TAG TAG" />
+  <meta property="og:url" content="https://cwchenwang.github.io/tttLRM" />
+  <!-- Path to banner image, should be in the path listed below. Optimal dimenssions are 1200X630-->
+  <meta property="og:image" content="static/image/your_banner_image.png" />
+  <meta property="og:image:width" content="1200" />
+  <meta property="og:image:height" content="630" />
+
+  <!-- Keywords for your paper to be indexed by-->
+  <meta name="keywords" content="Large Reconstruction Model, 3D Vision">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+
+  <title>tttLRM</title>
+  <link rel="icon" type="image/x-icon" href="static/images/favicon.svg">
+  <link href="https://fonts.googleapis.com/css?family=Google+Sans|Noto+Sans|Castoro" rel="stylesheet">
+
+  <link rel="stylesheet" href="static/css/bulma.min.css">
+  <link rel="stylesheet" href="static/css/bulma-carousel.min.css">
+  <link rel="stylesheet" href="static/css/bulma-slider.min.css">
+  <link rel="stylesheet" href="static/css/fontawesome.all.min.css">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/jpswalsh/academicons@1/css/academicons.min.css">
+  <link rel="stylesheet" href="static/css/index.css">
+
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+  <script src="https://documentcloud.adobe.com/view-sdk/main.js"></script>
+  <script defer src="static/js/fontawesome.all.min.js"></script>
+  <script src="static/js/bulma-carousel.min.js"></script>
+  <script src="static/js/bulma-slider.min.js"></script>
+  <script src="static/js/index.js"></script>
+  <script src="static/js/video_comparison.js"></script>
+</head>
+
+<body>
+
+
+  <section class="hero">
+    <div class="hero-body">
+      <div class="container is-max-desktop">
+        <div class="columns is-centered" style="margin-bottom: 0em">
+          <div class="column is-max-desktop has-text-centered">
+            <h1 class="title is-2 publication-title" style="margin-bottom:0rem">
+              <strong>tttLRM: Test-Time Training for Long Context
+                and Autoregressive 3D Reconstruction</strong>
+            </h1>
+          </div>
+        </div>
+        <div class="columns is-centered">
+          <div class="column is-four-fifths has-text-centered">
+            <div class="is-size-5 publication-authors">
+              <span class="author-block">
+                <a href="https://cwchenwang.github.io/">Chen Wang</a><sup>1*</sup></span>&nbsp;&nbsp;&nbsp;&nbsp;
+              <span class="author-block">
+                <a href="https://research.adobe.com/person/hao-tan/">Hao Tan</a><sup>2</sup>&nbsp;&nbsp;&nbsp;&nbsp;
+              </span>
+              <span class="author-block">
+                <a href="https://yifita.netlify.app/">Wang Yifan</a>
+                <sup>2</sup>&nbsp;&nbsp;&nbsp;&nbsp;
+              </span>
+              <span class="author-block">
+                <a href="https://czq142857.github.io/">Zhiqin Chen</a><sup>2</sup>&nbsp;&nbsp;&nbsp;&nbsp;
+              </span>
+              <span class="author-block">
+                <a href="https://yuheng.ink/">Yuheng Liu</a><sup>3*</sup>&nbsp;&nbsp;&nbsp;&nbsp;
+              </span>
+              <span class="author-block">
+                <a href="http://www.kalyans.org/">Kalyan Sunkavalli</a><sup>2</sup>&nbsp;&nbsp;&nbsp;&nbsp;
+              </span>
+              <span class="author-block">
+                <a href="https://sai-bi.github.io/">Sai bi</a><sup>2</sup>&nbsp;&nbsp;&nbsp;&nbsp;
+              </span>
+              <span class="author-block">
+                <a href="https://lingjie0206.github.io/">Lingjie Liu</a><sup>1</sup>&nbsp;&nbsp;&nbsp;&nbsp;
+              </span>
+              <span class="author-block">
+                <a href="https://yiweihu.netlify.app/">Yiwei Hu</a><sup>2</sup>&nbsp;&nbsp;&nbsp;&nbsp;
+              </span>
+            </div>
+
+            <div class="is-size-5 publication-authors">
+              <span class="author-block"><sup>1</sup>University of Pennsylvania</span>
+              &nbsp;&nbsp;&nbsp;&nbsp;
+              <span class="author-block"><sup>2</sup>Adobe Research</span>
+              &nbsp;&nbsp;&nbsp;&nbsp;
+              <span class="author-block"><sup>3</sup>UCI</span>
+              <br>
+              <span class="author-block">(*: Work done as interns at Adobe Research)</span>
+              <br>
+            </div>
+
+            <br>
+            <div class="columns is-centered" style="margin-bottom: 0em">
+              <div class="column is-max-desktop has-text-centered" style="padding: 0.5em">
+                <h1 class="title is-4 publication-title" style="margin-bottom:0rem">
+                  <strong>Arxiv, 2025</strong>
+                </h1>
+              </div>
+            </div>
+
+            <div class="column has-text-centered" style="margin-top: 0; margin-bottom: 0;">
+              <div class="publication-links">
+                <div class="btn-group btn-group-sm main-btn-group">
+                  <a target="_blank" rel="noopener noreferrer" href="https://arxiv.org/abs/XX"><span
+                      class="button is-normal" onclick="">
+                      <span class="icon"><i class="fas fa-file-pdf"></i></span>&nbsp&nbsp
+                      PDF
+                    </span></a>
+                  <a target="_blank" rel="noopener noreferrer" href="https://arxiv.org/abs/XX"><span
+                      class="button is-normal" onclick="">
+                      <span class="icon"><i class="ai ai-arxiv"></i></span>&nbsp&nbsp
+                      arXiv
+                    </span></a>
+                  <a href="#" target="_blank"><span class="button is-normal" onclick="">
+                      <span class="icon"><i class="fas fa-video"></i></span>&nbsp&nbsp
+                      Video
+                    </span></a>
+                  <a href="#BibTeX"><span class="button is-normal" onclick="">
+                      <span class="icon"><i class="fas fa-quote-right"></i></span>&nbsp&nbsp
+                      BibTeX
+                    </span></a>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="hero is-small" style="margin-top: -5em;">
+    <div class="hero-body">
+      <div class="container">
+        <div id="results-carousel" class="carousel results-carousel">
+
+          <div class="item">
+            <video poster="" autoplay muted loop playsinline height="100%">
+              <source src="static/videos0/acid1.mp4" type="video/mp4">
+            </video>
+          </div>
+
+          <div class="item">
+            <video poster="" autoplay muted loop playsinline height="100%">
+              <source src="static/videos/earphone_cat.mp4" type="video/mp4">
+            </video>
+          </div>
+
+          <div class="item">
+            <video poster="" autoplay muted loop playsinline height="100%">
+              <source src="static/videos/giraffe_cat.mp4" type="video/mp4">
+            </video>
+          </div>
+
+        </div>
+      </div>
+    </div>
+    <h2 class="subtitle has-text-centered" style="margin-top: -1em; margin-bottom: 1em;">
+      PhysCtrl achieves controllable and physics-grounded video generation from an initial force.
+    </h2>
+  </section>
+
+  <!-- Paper abstract -->
+  <section class="section hero">
+    <div class="container is-max-desktop">
+      <div class="columns is-centered has-text-centered">
+        <div class="column is-four-fifths">
+          <h2 class="title is-3">Abstract</h2>
+          <div class="content has-text-justified">
+            <p>
+              We propose tttLRM, a novel large 3D reconstruction model that leverages a Test-Time Training (TTT) layer
+              to enable long-context, autoregressive 3D reconstruction with linear computational complexity, further
+              scaling the model’s capability. Our framework efficiently compresses multiple image observations into the
+              fast weights of the TTT layer, forming an implicit 3D representation in the latent space that can be
+              decoded into various explicit formats, such as Gaussian Splats (GS) for downstream applications. The
+              online learning variant of our model supports progressive 3D reconstruction and refinement from streaming
+              observations. We demonstrate that pretraining on novel view synthesis tasks effectively transfers to
+              explicit 3D modeling, resulting in improved reconstruction quality and faster convergence. Extensive
+              experiments show that our method achieves superior performance in feedforward 3D Gaussian reconstruction
+              compared to state-of-the-art approaches on both objects and scenes.
+            </p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+  <!-- End paper abstract -->
+
+
+  <section class="hero teaser" style="padding-top: 2em;">
+    <div class="container is-max-desktop">
+      <div class="columns is-centered has-text-centered">
+        <div class="column">
+          <h2 class="title is-3">Pipeline</h2>
+          <img src="static/images/pipeline.png" alt="Teaser image" class="teaser-image">
+          <div class="content has-text-justified">
+            <p>
+              Given a set of posed input images, tttLRM encodes them into tokens (green boxes) after patchifying. The
+              input tokens are fed
+              into the LaCT block (shown in the blue frame) where fast weights are updated accordingly. Another set of
+              virtual tokens (blue boxes) are
+              used to query the updated fast weights, and decoded into 3D representations like 3DGS for high-quality
+              novel view synthesis.
+            </p>
+          </div>
+        </div>
+      </div>
+  </section>
+
+  <!-- Comparisons Section -->
+  <section class="section hero" style="padding-top: 2em;">
+    <div class="container is-max-desktop">
+      <div class="columns is-centered has-text-centered">
+        <div class="column">
+          <h2 class="title is-3">Comparisons</h2>
+          <div class="tabs">
+            <div class="tab active" id='compare_video' onclick="showComparison(this)">Video</div>
+            <div class="tab" id='compare_image' onclick="showComparison(this)">Single Frame</div>
+          </div>
+
+          <div class="image-row">
+            <div class="image-wrapper">
+              <div class="video-compare-container" id="seq25_compare_videoDiv" style="display: inline;">
+                <video class="video" id="seq25_compare_video" loop playsinline autoPlay muted
+                  src="./static/videos/seq_25_combine.mp4" data-method-index="0" onplay="resizeAndPlay(this)">
+                </video>
+                <canvas height=0 class="videoMerge" id="seq25_compare_videoMerge"></canvas>
+              </div>
+            </div>
+
+            <div class="image-wrapper">
+              <div class="video-compare-container" id="seq06_compare_videoDiv" style="display: inline;">
+                <video class="video" id="seq06_compare_video" loop playsinline autoPlay muted
+                  src="./static/videos/seq_25_combine.mp4" data-method-index="0" onplay="resizeAndPlay(this)">
+                </video>
+                <canvas height=0 class="videoMerge" id="seq06_compare_videoMerge"></canvas>
+              </div>
+            </div>
+          </div>
+
+          <div class="image-row">
+            <div class="image-wrapper">
+              <div class="video-compare-container" id="seq25_compare_imageDiv" style="display: none;">
+                <video class="video" id="seq25_compare_image" loop playsinline autoPlay muted
+                  src="./static/videos/seq_25_combine_single.mp4" data-method-index="0" onplay="resizeAndPlay(this)">
+                </video>
+                <canvas height=0 class="videoMerge" id="seq25_compare_imageMerge"></canvas>
+              </div>
+            </div>
+
+            <div class="image-wrapper">
+              <div class="video-compare-container" id="seq06_compare_imageDiv" style="display: none;">
+                <video class="video" id="seq06_compare_image" loop playsinline autoPlay muted
+                  src="./static/videos/seq_25_combine_single.mp4" data-method-index="0" onplay="resizeAndPlay(this)">
+                </video>
+                <canvas height=0 class="videoMerge" id="seq06_compare_imageMerge"></canvas>
+              </div>
+            </div>
+          </div>
+
+          <div class="method-pill-group">
+            <div class="method-pill active" data-method="method1" onclick="selectMethod(this)">Method 1</div>
+            <div class="method-pill" data-method="method2" onclick="selectMethod(this)">Method 2</div>
+            <div class="method-pill" data-method="method3" onclick="selectMethod(this)">Method 3</div>
+          </div>
+
+        </div>
+      </div>
+    </div>
+  </section>
+  <!-- End Comparisons Section -->
+
+  <!--BibTex citation -->
+  <section class="section" id="BibTeX">
+    <div class="container is-max-desktop content has-text-justified">
+      <h2 class="title is-3 has-text-centered">BibTeX</h2>
+      <pre><code>
+@article{wang2025tttlrm,
+  Author = {Chen Wang and Hao Tan and Wang Yifan and Zhiqin Chen and Yuheng Liu and Kalyan Sunkavalli and Sai Bi and Lingjie Liu and Yiwei Hu},
+  Title = {tttLRM: Test-Time Training for Long Context and Autoregressive 3D Reconstruction},
+  Year = {2025},
+  booktitle={Arxiv},
+}
+  </code></pre>
+    </div>
+  </section>
+  <!--End BibTex citation -->
+
+  <footer class="footer">
+    <div class="container">
+      <div class="columns is-centered">
+        <div class="column is-8">
+          <div class="content">
+
+            <p>
+              This page was built using the <a href="https://github.com/eliahuhorwitz/Academic-project-page-template"
+                target="_blank">Academic Project Page Template</a> which was adopted from the <a
+                href="https://nerfies.github.io" target="_blank">Nerfies</a> project page. We also borrowed code
+              from the <a href="https://edit-by-track.github.io/">Edit-by-Track</a> project page.
+              You are free to borrow the source code of this website, we just ask that you link back to this page in the
+              footer. This website is licensed under a <a rel="license"
+                href="http://creativecommons.org/licenses/by-sa/4.0/" target="_blank">Creative
+                Commons Attribution-ShareAlike 4.0 International License</a>.
+            </p>
+
+          </div>
+        </div>
+      </div>
+    </div>
+  </footer>
+
+  <!-- Statcounter tracking code -->
+
+  <!-- You can add a tracker to track page visits by creating an account at statcounter.com -->
+
+  <!-- End of Statcounter Code -->
+
+</body>
+
+</html>
