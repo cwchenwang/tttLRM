@@ -114,7 +114,7 @@ class Dataset(Dataset):
         self.sample_ar = self.config.training.get("sample_ar", False)
         self.input_length_list = [16, 32, 64, 64] if self.config.training.get("sample_mixed_length", False) else None
 
-        self.all_camera_paths = open(self.config.training.dataset_path, "r").readlines()
+        self.all_camera_paths = json.load(open(self.config.training.dataset_path, "r"))
         self.all_camera_paths = [x.strip() for x in self.all_camera_paths]
         self.all_camera_paths = [x for x in self.all_camera_paths if len(x) > 0]
 

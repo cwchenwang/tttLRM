@@ -123,9 +123,13 @@ def process_one_scene(scene_path, output_dir=None):
             "file_path": file_path
         }
         new_data.append(frame_new)  # Changed from append to frames array
+    data = {
+        'scene_name': scene_name,
+        'frames': new_data
+    }
     
-    # Save opencv_cameras.json
-    json.dump(new_data, open(new_json_file, 'w'), indent=4)
+    # Save opencv_cameras.json    
+    json.dump(data, open(new_json_file, 'w'), indent=4)
     print(f"Successfully processed {scene_path}")
     return True
 
@@ -182,8 +186,8 @@ def create_sample_data_path_json(benchmark_dir, output_file):
             cameras_file = item / 'opencv_cameras.json'
             if cameras_file.exists():
                 # Create relative path from data_example
-                relative_path = f"dl3dv_processed/{item.name}/opencv_cameras.json"
-                data_paths.append(relative_path)
+                relative_path =  benchmark_dir.parent / "dl3dv_processed" / item.name / "opencv_cameras.json"
+                data_paths.append(str(relative_path))
     
     # Sort for consistent output
     data_paths.sort()

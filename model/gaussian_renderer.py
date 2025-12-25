@@ -9,7 +9,13 @@ class GaussianRenderer(torch.autograd.Function):
         opacity = opacity.sigmoid().squeeze(-1)
         scale = scale.exp()
         rotation = F.normalize(rotation, p=2, dim=-1)
-        test_w2c = test_c2w.float().inverse().unsqueeze(0) # (1, 4, 4)
+        try:
+            test_w2c = test_c2w.inverse()
+        except:
+            eps = 1e-6
+            c2w_stable = test_c2w + torch.eye(test_c2w.shape[-1], device=test_c2w.device) * eps
+            test_w2c = torch.linalg.inv(c2w_stable)
+        test_w2c = test_w2c.unsqueeze(0)
         test_intr_i = torch.zeros(3, 3).to(test_intr.device)
         test_intr_i[0, 0] = test_intr[0]
         test_intr_i[1, 1] = test_intr[1]

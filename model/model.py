@@ -16,7 +16,7 @@ from einops.layers.torch import Rearrange
 from einops import rearrange
 from PIL import Image
 
-from .loss import PerceptualLoss, PerceptualLoss1
+from .loss import PerceptualLoss
 
 from functools import partial
 
@@ -407,7 +407,7 @@ class tttLRM(nn.Module):
             keep_idx=keep_idx,
             gaussians= {'xyz': xyz.float(), 'feature': features.float(), 'scale': scaling.float(), 'rotation': rotation.float(), 'opacity': opacity.float()}
         )
-        if disp_rel is not None:
+        if self.config.training.depth_loss_weight > 0.0:
             disp_rel = sp_support.sp_all_gather(disp_rel, gather_dim=1, length=num_input_views * sp_world_size)
             result.disp_rel = disp_rel
         return result

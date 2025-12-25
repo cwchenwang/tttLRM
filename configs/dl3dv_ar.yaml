@@ -1,0 +1,122 @@
+profile: false
+debug: false
+model:
+  use_anything: true
+  class_name: model.model.tttLRM
+  image_size: 536
+  image_size_x: 960
+  patch_size: 8
+  input_shift: true
+  image_tokenizer:
+    image_size: ${model.image_size}
+    patch_size: 8
+  in_channels: 12
+  hard_pixelalign: true
+  d: 768
+  transformer:
+    d: 768
+    d_head: 64
+    n_layer: 24
+  block_type: ttt
+  ttt_scan: ar
+  block_config:
+  - type: model.block.SelfAttention
+    length_dim: l
+    params:
+      head_dim: 64
+      causal: false
+      use_qk_norm: true
+  - type: model.lact_ttt.FastWeightGluMLPMultihead
+    length_dim: vl
+    params:
+      head_dim: 768
+      inter_multi: 4
+      use_o_norm: true
+      muon_update_steps: 5
+  - type: model.block.MLP
+    length_dim: vl
+    params:
+      inter_multi: 4
+  gaussians:
+    n_gaussians: 0
+    pre_thres: true
+    prune_ratio: 0.4
+    random_ratio: 0.1
+    usage_threshold: 0.01
+    sh_degree: 3
+    upsampler:
+      upsample_factor: 1
+    range_setting:
+      type: linear_depth
+      near: 0
+      far: 500
+  gs_per_pixel_sqrt: 1
+  act_ckpt: true
+  predict_gs: true
+  gs_on_input: false
+  fixed_virtual: true
+  use_gsplat: true
+  z_near: 0.1
+  near_plane: ${model.z_near}
+training:
+  use_tf32: true
+  use_amp: true
+  amp_dtype: bf16
+  torch_compile: false
+  grad_accum_steps: 8
+  grad_clip_norm: 1.0
+  grad_checkpoint_every: 1
+  dataset_name: data.dataset_scene.Dataset
+  dataset_path: YOUR_DATASET_PATH
+  num_views: 124
+  num_input_views: 64
+  num_target_views: 48
+  num_virtual_views: 64
+  target_has_input: true
+  use_rel_pose: false
+  struct_views: false
+  view_selector:
+    min_frame_dist: 128
+    max_frame_dist: 512
+    type: two_frame
+  square_crop: false
+  center_crop: true
+  coordinate_method: first_cam
+  batch_size_per_gpu: 1
+  num_workers: 16
+  num_threads: 0
+  prefetch_factor: 1
+  l2_loss_weight: 1.0
+  lpips_loss_weight: 0.0
+  perceptual_loss_weight: 0.5
+  ssim_loss_weight: 0.0
+  pixelalign_loss_weight: 0.0
+  pointsdist_loss_weight: 0.0
+  distill_loss_weight: 0.0
+  opacity_loss_weight: 0.01
+  alpha_loss_weight: 0.0
+  depth_loss_weight: 0.01
+  num_epochs: 1000
+  max_fwdbwd_passes: 1000000
+  lr: 1.0e-05
+  reset_lr: false
+  beta1: 0.9
+  beta2: 0.95
+  weight_decay: 0.05
+  reset_weight_decay: false
+  warmup: 100
+  vis_every: 500
+  eval_every: 2000
+  print_every: 20
+  checkpoint_every: 500
+  checkpoint_dir: ./checkpoints/${training.wandb_exp_name}
+  wandb_project: tttLRM
+  wandb_exp_name: gs_dl3dvttt_lineardepth_full_fdist128to512_res536x960_v64_t48_5e-5_bs64_near0.1_miniupdate_ar_repeat16_bs128_warm100_first_cam
+  wandb_log_every: 50
+  wandb_offline: false
+  reset_training_state: true
+  sample_ar: true
+  data_repeat: 16
+inference: false
+sp_size: 8
+data_repeat: 16
