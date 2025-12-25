@@ -175,7 +175,7 @@ class Dataset(Dataset):
                 image_choices = data_json[f'fold_8_kmeans_{num_input_views}_input']
                 test_set = list(range(0, len(frames), 8))
 
-                if self.config.model.get('ttt_scan', 'full') in ['miniupdate', 'minibatch']:
+                if self.config.model.get('ttt_scan', 'full') in ['ar']:
                     image_choices = np.array(sorted(image_choices)[:num_input_views]).reshape(-1, self.config.get('sp_size', 1)).flatten(order='F').tolist()
                 image_choices += test_set 
             else:
