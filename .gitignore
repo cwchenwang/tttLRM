@@ -6,3 +6,5 @@ src/data_generation/data/
 outputs/
 checkpoints/
 **/**DS_Store
+evaluation/
+data_example/

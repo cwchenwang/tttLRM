@@ -177,7 +177,7 @@ class Dataset(Dataset):
 
                 if self.config.model.get('ttt_scan', 'full') in ['miniupdate', 'minibatch']:
                     image_choices = np.array(sorted(image_choices)[:num_input_views]).reshape(-1, self.config.get('sp_size', 1)).flatten(order='F').tolist()
-                image_choices += test_set
+                image_choices += test_set 
             else:
                 if len(frames) < num_views:
                     return self.__getitem__(random.randint(0, len(self) - 1))
@@ -255,13 +255,12 @@ class Dataset(Dataset):
             "image": torch.stack(input_images),
             "c2w": input_c2ws,
             "fxfycxcy": input_fxfycxcy,
-            "index": image_choices,
+            "index": indices,
             "scene_name": scene_name,
             'virtual_c2w': virtual_c2ws,
             'virtual_fxfycxcy': virtual_fxfycxcy,
             'virtual_input_indices': virtual_input_indices,
             'num_input_views': num_input_views,
-            'indices': indices,
             'scene_scale': scene_scale,
             'apos': apos
         }
@@ -270,21 +269,9 @@ class Dataset(Dataset):
 if __name__ == "__main__":
     # test dataset
     import omegaconf
-    config = omegaconf.OmegaConf.load('/home/chenwang/workspace/projects/tttLRM-all/tttLRM-public/configs/dl3dv.yaml')
-    config.target_has_input = False
-    config.training.dataset_path = '/home/chenwang/workspace/projects/tttLRM-all/test_data/dl3dv10k_benchmark.txt'
+    config = omegaconf.OmegaConf.load('/mnt/localssd/dl3dvconfig.yaml')
     config.training.frame_method = 'mean_cam'
-    config.evaluation = True
-    config.training.num_views = 35
-    config.training.num_input_views = 16
-    config.training.num_virtual_views = 16
-    config.training.num_target_views = 16
-    config.training.view_selector.type = 'kmeans'
-    config.training.view_selector.fold_size = 8
-    config.training.view_selector.num_input_views = 16
-    config.training.view_selector.num_virtual_views = 16
-    config.training.view_selector.num_target_views = 16
-    config.kmeans_input = False
     dataset = Dataset(config)
     for i in range(len(dataset)):
         print(dataset[i])
+        import pdb; pdb.set_trace();

@@ -1,0 +1,2 @@
+huggingface-cli download chenwang/tttLRM --local-dir checkpoints --local-dir-use-symlinks False
+wget https://huggingface.co/depth-anything/Depth-Anything-V2-Small/resolve/main/depth_anything_v2_vits.pth?download=true -O depth_anything_v2/depth_anything_vits.pth

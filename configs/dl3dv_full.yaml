@@ -2,7 +2,7 @@ profile: false
 debug: false
 model:
   use_anything: true
-  class_name: model.img2gs_scene_pa_selfatt_sp_multi.Images2Gaussians
+  class_name: model.model.tttLRM
   image_size: 536
   image_size_x: 960
   patch_size: 8
@@ -11,6 +11,7 @@ model:
     image_size: ${model.image_size}
     patch_size: 8
     in_channels: 12
+  in_channels: 12
   hard_pixelalign: true
   d: 768
   transformer:
@@ -20,21 +21,20 @@ model:
   block_type: ttt
   ttt_scan: full
   block_config:
-  - type: model.blocks.block.SelfAttention
+  - type: model.block.SelfAttention
     length_dim: l
     params:
       head_dim: 64
       causal: false
       use_qk_norm: true
-  - type: model.blocks.ttt_minimal_v2_sp.FastWeightGluMLPMultihead
+  - type: model.lact_ttt.FastWeightGluMLPMultihead
     length_dim: vl
     params:
       head_dim: 768
       inter_multi: 4
-      lr_parameterization: mamba
       use_o_norm: true
       muon_update_steps: 5
-  - type: model.blocks.block.MLP
+  - type: model.block.MLP
     length_dim: vl
     params:
       inter_multi: 4
@@ -67,7 +67,7 @@ training:
   grad_accum_steps: 8
   grad_clip_norm: 1.0
   grad_checkpoint_every: 1
-  dataset_name: data.dataset_scene_pub.Dataset
+  dataset_name: data.dataset_scene.Dataset
   dataset_path: YOUR_DATASET_PATH
   num_views: 124
   num_input_views: 64
@@ -80,15 +80,9 @@ training:
     min_frame_dist: 128
     max_frame_dist: 512
     type: two_frame
+  frame_method: mean_cam
   square_crop: false
   center_crop: true
-  center_scale_setting:
-    coordinate_method: mean_cam
-    scale_range:
-    - 1.0
-    - 1.0
-    scene_scale_method: fix_range
-  frame_method: mean_cam
   batch_size_per_gpu: 1
   num_workers: 16
   num_threads: 0
@@ -126,7 +120,5 @@ training:
   sample_mixed_length: true
   data_repeat: 4
 inference: false
-eval_dataset_path: s3://grp-r3d-intern-projs/ziwenc/dataset_paths/dl3dv10k_benchmark.txt
-inference_out_dir: ../experiments/inference/gs_dl3dvttt_lineardepth_full_fdist128to512_res536x960_v64_t48_mixed_16_32_64_5e-5_bs64
 sp_size: 8
 data_repeat: 4

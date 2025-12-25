@@ -26,7 +26,7 @@ python data/dl3dv_format_converter.py
 to convert to our dataset format (OpenCV camera). 
 
 ## 🤝 Acknowledgements
-Our codebase is built upon open-source projects including [LongLRM](https://github.com/arthurhero/Long-LRM) and [LaCT](https://github.com/a1600012888/LaCT).
+Our codebase is largely built upon open-source projects including [LongLRM](https://github.com/arthurhero/Long-LRM) and [LaCT](https://github.com/a1600012888/LaCT). We thank the authors for their helpful code.
 
 ## 📜 Citation
 
