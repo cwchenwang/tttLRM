@@ -1,5 +1,9 @@
 body {
-  font-family: 'Noto Sans', sans-serif;
+  font-family: 'Google Sans', 'Noto Sans', sans-serif;
+}
+
+.hero-body {
+  padding-bottom: 1.5rem;
 }
 
 
@@ -364,16 +368,63 @@ body {
   margin-right: auto;
 }
 
+.comparison-controls-row {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 14px;
+  margin-top: 16px;
+  margin-bottom: 8px;
+}
+
+.comparison-controls-row .method-pill-group {
+  margin: 0;
+}
+
+.play-toggle-button {
+  width: 46px;
+  height: 46px;
+  border-radius: 50%;
+  border: 2px solid #007bff;
+  background-color: #fff;
+  color: #007bff;
+  font-family: 'Google Sans', sans-serif;
+  font-weight: 600;
+  font-size: 13px;
+  line-height: 1;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  transition: background-color 0.2s ease, color 0.2s ease, box-shadow 0.2s ease;
+  box-shadow: rgba(0, 0, 0, 0.08) 0px 2px 8px;
+}
+
+.play-toggle-button:hover {
+  background-color: #007bff;
+  color: #fff;
+}
+
 .method-pill {
   cursor: pointer;
-  padding: 10px 18px;
+  padding: 12px 22px;
   border-radius: 12px;
   background-color: transparent;
   color: #333;
   font-family: 'Google Sans', sans-serif;
   font-weight: 600;
+  font-size: 15px;
   border: 1px solid transparent;
   transition: background-color 0.2s ease, color 0.2s ease, border-color 0.2s ease, box-shadow 0.2s ease;
+}
+
+.method-pill-label {
+  color: #007bff;
+  font-family: 'Google Sans', sans-serif;
+  font-weight: 600;
+  font-size: 15px;
+  padding-left: 6px;
+  padding-right: 2px;
 }
 
 .method-pill:hover {

@@ -3,15 +3,14 @@
 // With additional modifications based on: https://jsfiddle.net/7sk5k4gp/13/
 
 // Method configuration: method name -> index in the combined video
-// New layout: Method1 | Method2 | Method3 | Ours  (4 segments total)
+// Layout: Method1 | Method2 | Ours  (3 segments total)
 var methodConfig = {
     'method1': 0,
-    'method2': 1,
-    'method3': 2
+    'method2': 1
 };
 
 var currentMethodIndex = 0;
-var totalSegments = 4; // 3 baselines + Ours
+var totalSegments = 3; // 2 baselines + Ours
 
 function showComparison(target) {
     var elements = document.getElementsByClassName('tab')
@@ -55,7 +54,7 @@ function selectMethod(element) {
     var method = element.getAttribute('data-method');
 
     // Update active state
-    var methodTabs = document.querySelectorAll('.method-pill');
+    var methodTabs = document.querySelectorAll('.method-pill[data-method]');
     methodTabs.forEach(function (tab) {
         tab.classList.remove('active');
     });
@@ -81,6 +80,33 @@ function changeMethod(method) {
     });
 }
 
+ 
+
+function setComparisonToggleLabel(isPlaying) {
+    var toggle = document.getElementById('compare_toggle_play');
+    if (!toggle) return;
+    toggle.textContent = isPlaying ? '❚❚' : '▶';
+}
+
+function toggleComparisonPlayback() {
+    var videos = document.querySelectorAll('video[data-method-index]');
+    if (!videos.length) return;
+
+    var shouldPause = Array.prototype.some.call(videos, function (video) {
+        return !video.paused && !video.ended;
+    });
+
+    videos.forEach(function (video) {
+        if (shouldPause) {
+            video.pause();
+        } else {
+            video.play();
+        }
+    });
+
+    setComparisonToggleLabel(!shouldPause);
+}
+
 // Initialize with default method on page load
 document.addEventListener('DOMContentLoaded', function () {
     changeMethod('method1');
@@ -88,6 +114,24 @@ document.addEventListener('DOMContentLoaded', function () {
     var activeTab = document.getElementById('compare_video') || document.querySelector('.tab');
     if (activeTab) {
         showComparison(activeTab);
+    } else {
+        // No tabs: initialize visible containers directly
+        var visibleContainers = document.querySelectorAll('.video-compare-container');
+        visibleContainers.forEach(function (container) {
+            if (container.style.display === 'none') return;
+            var video = container.querySelector('video');
+            if (video) {
+                if (video.readyState < 1) {
+                    video.addEventListener('loadedmetadata', function handleLoaded() {
+                        video.removeEventListener('loadedmetadata', handleLoaded);
+                        resizeAndPlay(video);
+                    });
+                    video.load();
+                } else {
+                    resizeAndPlay(video);
+                }
+            }
+        });
     }
 });
 
@@ -109,7 +153,7 @@ function playVids(videoId) {
     }
 
     var position = 0.5;
-    // Layout: Method1 | Method2 | Method3 | Ours (4 segments total)
+    // Layout: Method1 | Method2 | Ours (3 segments total)
     // Select baseline by methodIndex, ours is fixed at last segment
     var segmentWidth = vid.videoWidth / totalSegments; // Each segment width
     var methodStartX = methodIndex * segmentWidth;     // Selected baseline segment
@@ -222,13 +266,14 @@ Number.prototype.clamp = function (min, max) {
 
 function resizeAndPlay(element) {
     var cv = document.getElementById(element.id + "Merge");
-    // Calculate canvas width: display one segment width (for Method1 | Ours comparison)
+    // Calculate canvas width: display one segment width (for MethodX | Ours comparison)
     var segmentWidth = element.videoWidth / totalSegments;
     if (!segmentWidth || !isFinite(segmentWidth)) return;
 
     cv.width = segmentWidth;
     cv.height = element.videoHeight;
     element.play();
+    setComparisonToggleLabel(true);
     element.style.height = "0px";  // Hide video without stopping it
 
     playVids(element.id);

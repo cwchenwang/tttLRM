@@ -77,10 +77,10 @@
                 <a href="https://sai-bi.github.io/">Sai bi</a><sup>2</sup>&nbsp;&nbsp;&nbsp;&nbsp;
               </span>
               <span class="author-block">
-                <a href="https://lingjie0206.github.io/">Lingjie Liu</a><sup>1</sup>&nbsp;&nbsp;&nbsp;&nbsp;
+                <a href="https://lingjie0206.github.io/">Lingjie Liu</a><sup>1$</sup>&nbsp;&nbsp;&nbsp;&nbsp;
               </span>
               <span class="author-block">
-                <a href="https://yiweihu.netlify.app/">Yiwei Hu</a><sup>2</sup>&nbsp;&nbsp;&nbsp;&nbsp;
+                <a href="https://yiweihu.netlify.app/">Yiwei Hu</a><sup>2$</sup>&nbsp;&nbsp;&nbsp;&nbsp;
               </span>
             </div>
 
@@ -91,7 +91,7 @@
               &nbsp;&nbsp;&nbsp;&nbsp;
               <span class="author-block"><sup>3</sup>UCI</span>
               <br>
-              <span class="author-block">(*: Work done as interns at Adobe Research)</span>
+              <span class="author-block">(*: Work done as interns at Adobe Research, $: Equal Advising)</span>
               <br>
             </div>
 
@@ -99,7 +99,7 @@
             <div class="columns is-centered" style="margin-bottom: 0em">
               <div class="column is-max-desktop has-text-centered" style="padding: 0.5em">
                 <h1 class="title is-4 publication-title" style="margin-bottom:0rem">
-                  <strong>Arxiv, 2025</strong>
+                  <strong>Arxiv, 2026</strong>
                 </h1>
               </div>
             </div>
@@ -117,10 +117,10 @@
                       <span class="icon"><i class="ai ai-arxiv"></i></span>&nbsp&nbsp
                       arXiv
                     </span></a>
-                  <a href="#" target="_blank"><span class="button is-normal" onclick="">
+                  <!-- <a href="#" target="_blank"><span class="button is-normal" onclick="">
                       <span class="icon"><i class="fas fa-video"></i></span>&nbsp&nbsp
                       Video
-                    </span></a>
+                    </span></a> -->
                   <a href="#BibTeX"><span class="button is-normal" onclick="">
                       <span class="icon"><i class="fas fa-quote-right"></i></span>&nbsp&nbsp
                       BibTeX
@@ -134,7 +134,7 @@
     </div>
   </section>
 
-  <section class="hero is-small" style="margin-top: -5em;">
+  <!-- <section class="hero is-small" style="margin-top: -5em;">
     <div class="hero-body">
       <div class="container">
         <div id="results-carousel" class="carousel results-carousel">
@@ -163,10 +163,10 @@
     <h2 class="subtitle has-text-centered" style="margin-top: -1em; margin-bottom: 1em;">
       PhysCtrl achieves controllable and physics-grounded video generation from an initial force.
     </h2>
-  </section>
+  </section> -->
 
   <!-- Paper abstract -->
-  <section class="section hero">
+  <section class="section hero" style="padding-top: 0.5rem; padding-bottom: 0.5rem;">
     <div class="container is-max-desktop">
       <div class="columns is-centered has-text-centered">
         <div class="column is-four-fifths">
@@ -212,22 +212,44 @@
       </div>
   </section>
 
+  <section class="section hero" style="padding-bottom: 0.5rem;">
+    <div class="container is-max-desktop">
+      <div class="columns is-centered has-text-centered">
+        <div class="column">
+          <h2 class="title is-3">Autoregressive GS Reconstruction</h2>
+          <video class="video" id="autoregressive_gs_video" loop playsinline autoPlay muted src="./static/videos/ar.mp4"
+            data-method-index="0" onplay="resizeAndPlay(this)">
+          </video>
+        </div>
+      </div>
+    </div>
+  </section>
+
   <!-- Comparisons Section -->
   <section class="section hero" style="padding-top: 2em;">
     <div class="container is-max-desktop">
       <div class="columns is-centered has-text-centered">
         <div class="column">
           <h2 class="title is-3">Comparisons</h2>
-          <div class="tabs">
+          <!-- <div class="tabs">
             <div class="tab active" id='compare_video' onclick="showComparison(this)">Video</div>
-            <div class="tab" id='compare_image' onclick="showComparison(this)">Single Frame</div>
+          </div> -->
+          <div class="comparison-controls-row">
+            <div class="method-pill-group">
+              <div class="method-pill active" data-method="method1" onclick="selectMethod(this)">3DGS</div>
+              <div class="method-pill" data-method="method2" onclick="selectMethod(this)">LongLRM</div>
+              <span class="method-pill-label">vs. Ours</span>
+            </div>
+            <button class="play-toggle-button" id="compare_toggle_play" onclick="toggleComparisonPlayback()">❚❚</button>
           </div>
+
 
           <div class="image-row">
             <div class="image-wrapper">
               <div class="video-compare-container" id="seq25_compare_videoDiv" style="display: inline;">
                 <video class="video" id="seq25_compare_video" loop playsinline autoPlay muted
-                  src="./static/videos/seq_25_combine.mp4" data-method-index="0" onplay="resizeAndPlay(this)">
+                  src="./static/videos/374ffd0c5ff8e544f588f1da3ce0d5b69dc39ff3af95d7ccec480fe5e533c45e_combine.mp4"
+                  data-method-index="0" onplay="resizeAndPlay(this)">
                 </video>
                 <canvas height=0 class="videoMerge" id="seq25_compare_videoMerge"></canvas>
               </div>
@@ -236,7 +258,8 @@
             <div class="image-wrapper">
               <div class="video-compare-container" id="seq06_compare_videoDiv" style="display: inline;">
                 <video class="video" id="seq06_compare_video" loop playsinline autoPlay muted
-                  src="./static/videos/seq_25_combine.mp4" data-method-index="0" onplay="resizeAndPlay(this)">
+                  src="./static/videos/ba55c875d20c34ee85ffc72264c4d77710852e5fb7d9ce4b9c26a8442850e98f_combine.mp4"
+                  data-method-index="0" onplay="resizeAndPlay(this)">
                 </video>
                 <canvas height=0 class="videoMerge" id="seq06_compare_videoMerge"></canvas>
               </div>
@@ -245,30 +268,88 @@
 
           <div class="image-row">
             <div class="image-wrapper">
-              <div class="video-compare-container" id="seq25_compare_imageDiv" style="display: none;">
-                <video class="video" id="seq25_compare_image" loop playsinline autoPlay muted
-                  src="./static/videos/seq_25_combine_single.mp4" data-method-index="0" onplay="resizeAndPlay(this)">
+              <div class="video-compare-container" id="seq25_compare_video2Div" style="display: inline;">
+                <video class="video" id="seq25_compare_video2" loop playsinline autoPlay muted
+                  src="./static/videos/f477ffc4b398bed8e0d921f0fba9825ca63f317381c535c84be23be991ae1d7a_combine.mp4"
+                  data-method-index="0" onplay="resizeAndPlay(this)">
                 </video>
-                <canvas height=0 class="videoMerge" id="seq25_compare_imageMerge"></canvas>
+                <canvas height=0 class="videoMerge" id="seq25_compare_video2Merge"></canvas>
               </div>
             </div>
 
             <div class="image-wrapper">
-              <div class="video-compare-container" id="seq06_compare_imageDiv" style="display: none;">
-                <video class="video" id="seq06_compare_image" loop playsinline autoPlay muted
-                  src="./static/videos/seq_25_combine_single.mp4" data-method-index="0" onplay="resizeAndPlay(this)">
+              <div class="video-compare-container" id="seq06_compare_video2Div" style="display: inline;">
+                <video class="video" id="seq06_compare_video2" loop playsinline autoPlay muted
+                  src="./static/videos/63798f5c6fbfcb4eb686268248b8ecbc8d87d920b2bcce967eeaedfd3b3b6d82_combine.mp4"
+                  data-method-index="0" onplay="resizeAndPlay(this)">
                 </video>
-                <canvas height=0 class="videoMerge" id="seq06_compare_imageMerge"></canvas>
+                <canvas height=0 class="videoMerge" id="seq06_compare_video2Merge"></canvas>
               </div>
             </div>
           </div>
 
-          <div class="method-pill-group">
-            <div class="method-pill active" data-method="method1" onclick="selectMethod(this)">Method 1</div>
-            <div class="method-pill" data-method="method2" onclick="selectMethod(this)">Method 2</div>
-            <div class="method-pill" data-method="method3" onclick="selectMethod(this)">Method 3</div>
-          </div>
+          <div class="image-row">
+            <div class="image-wrapper">
+              <div class="video-compare-container" id="seq25_compare_video3Div" style="display: inline;">
+                <video class="video" id="seq25_compare_video3" loop playsinline autoPlay muted
+                  src="./static/videos/1ba74c22670ad047981441581d00f26f4a148d1010bcac7468c615adf5fa4d5d_combine.mp4"
+                  data-method-index="0" onplay="resizeAndPlay(this)">
+                </video>
+                <canvas height=0 class="videoMerge" id="seq25_compare_video3Merge"></canvas>
+              </div>
+            </div>
 
+            <div class="image-wrapper">
+              <div class="video-compare-container" id="seq06_compare_video3Div" style="display: inline;">
+                <video class="video" id="seq06_compare_video3" loop playsinline autoPlay muted
+                  src="./static/videos/5c3af581028068a3c402c7cbe16ecf9471ddf2897c34ab634b7b1b6cf81aba00_combine.mp4"
+                  data-method-index="0" onplay="resizeAndPlay(this)">
+                </video>
+                <canvas height=0 class="videoMerge" id="seq06_compare_video3Merge"></canvas>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+
+
+  <section class="section hero" style="padding-top: 2em;">
+    <div class="container is-max-desktop">
+      <div class="columns is-centered has-text-centered">
+        <div class="column">
+          <h2 class="title is-3">Single Image-to-3D at 1024 Res</h2>
+          <div class="columns is-centered">
+            <div class="column has-text-centered">
+              <img src="static/images/dog.jpg" style="width: 100%;">
+              <video poster="" autoplay muted loop playsinline height="100%">
+                <source src="static/videos/turntable_dog.mp4" type="video/mp4">
+              </video>
+              <br>
+              <a href="./static/gs/gaussians_dog.html" target="_blank" rel="noopener noreferrer">Open interactive
+                viewer</a>
+            </div>
+            <div class="column has-text-centered">
+              <img src="static/images/chair.jpg" style="width: 100%;">
+              <video poster="" autoplay muted loop playsinline height="100%">
+                <source src="static/videos/turntable_chair.mp4" type="video/mp4">
+              </video>
+              <br>
+              <a href="./static/gs/gaussians_chair.html" target="_blank" rel="noopener noreferrer">Open interactive
+                viewer</a>
+            </div>
+            <div class="column has-text-centered">
+              <img src="static/images/monalisa.jpg" style="width: 100%;">
+              <video poster="" autoplay muted loop playsinline height="100%">
+                <source src="static/videos/turntable_monalisa.mp4" type="video/mp4">
+              </video>
+              <br>
+              <a href="./static/gs/gaussians_monolisa.html" target="_blank" rel="noopener noreferrer">Open interactive
+                viewer</a>
+            </div>
+          </div>
         </div>
       </div>
     </div>
@@ -280,10 +361,10 @@
     <div class="container is-max-desktop content has-text-justified">
       <h2 class="title is-3 has-text-centered">BibTeX</h2>
       <pre><code>
-@article{wang2025tttlrm,
+@article{wang2026tttlrm,
   Author = {Chen Wang and Hao Tan and Wang Yifan and Zhiqin Chen and Yuheng Liu and Kalyan Sunkavalli and Sai Bi and Lingjie Liu and Yiwei Hu},
   Title = {tttLRM: Test-Time Training for Long Context and Autoregressive 3D Reconstruction},
-  Year = {2025},
+  Year = {2026},
   booktitle={Arxiv},
 }
   </code></pre>
