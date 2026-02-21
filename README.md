@@ -9,10 +9,25 @@ source tttlrm/bin/activate
 # CAUTION: change it to your CUDA version
 pip install torch==2.5.1 torchvision==0.20.1 torchaudio==2.5.1 --index-url https://download.pytorch.org/whl/cu118 xformers
 pip install -U setuptools wheel packaging ninja
+## Install flash-attn (You can also install prebuild wheels at: https://github.com/mjun0812/flash-attention-prebuild-wheels)
 pip install flash_attn==2.5.9.post1 --no-build-isolation
-## You can also install prebuild wheels at: https://github.com/mjun0812/flash-attention-prebuild-wheels
 pip install -r requirements.txt
 ```
+
+## 🤖 Pretrained Models
+```bash
+bash script/download_ckpts.sh
+```
+
+## ⚡ Inference
+We use `sp_size` for sequence parallel, which denotes the number of GPUs used for one sequence. Input views and generated Gaussians will be evenly distributed to `sp_size` GPUs.
+```bash
+# For Full model
+bash script/inference_dl3dv.sh
+# For AR model (4 views per chunk, set by '-s model.miniupdate_views')
+bash script/inference_dl3dv_ar.sh
+```
+We might not provide training code at this moment, but it can be easily done by combining [LongLRM](https://github.com/arthurhero/Long-LRM/blob/main/main.py) and our inference code (the sequence parallel part).
 
 ## 📂 Dataset
 Download DL3DV benchmark (i.e., test; not used in training) data at https://huggingface.co/datasets/DL3DV/DL3DV-Benchmark/tree/main using the following command:
@@ -39,7 +54,7 @@ If you find this work helpful, please consider citing our paper:
 @article{wang2026tttlrm,
     title   = {tttLRM: Test-Time Training for Long Context and Autoregressive 3D Reconstruction},
     author  = {Chen Wang, Hao Tan, Wang Yifan, Zhiqin Chen, Yuheng Liu, Kalyan Sunkavalli, Sai Bi, Lingjie Liu, Yiwei Hu},
-    journal = {arXiv},
+    journal = {CVPR},
     year    = {2026}
 }
 ```
