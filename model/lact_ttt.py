@@ -116,6 +116,9 @@ def fast_weight_swish_glu_weight_norm_mini_batch_apply(
     lr2: torch.Tensor,
     ttt_config: list,
     muon_update_steps: int = 0,
+    elastic_lambda: float = 0.0,
+    fisher_alpha: float = 0.1,
+    anchor_beta: float = 0.99,
 ):
     """
     Note:
@@ -132,6 +135,18 @@ def fast_weight_swish_glu_weight_norm_mini_batch_apply(
     w0_norm = w0.detach().norm(dim=1, keepdim=True)
     w1_norm = w1.detach().norm(dim=1, keepdim=True)
     w2_norm = w2.detach().norm(dim=1, keepdim=True)
+
+    # Initialize anti-Fisher anchor regularization state if enabled
+    use_elastic = elastic_lambda > 0.0
+    if use_elastic:
+        # Streaming-EMA anchors (initialized to the initial fast weights)
+        w0_anchor = w0.clone()
+        w1_anchor = w1.clone()
+        w2_anchor = w2.clone()
+        # Fisher EMA state (initialized to zeros — first chunk gets uniform regularization)
+        F0 = torch.zeros_like(w0)
+        F1 = torch.zeros_like(w1)
+        F2 = torch.zeros_like(w2)
 
     output = []
     for start, end, fast_weight, update, apply in ttt_config:
@@ -169,6 +184,41 @@ def fast_weight_swish_glu_weight_norm_mini_batch_apply(
             w0_now = w0_now + w0_grad
             w2_now = w2_now + w2_grad
 
+            # Anti-Fisher regularization: θ -= λ·(1 - F_norm)·(θ - θ*)
+            # Important params (high F) get less regularization; unimportant params get more.
+            if use_elastic:
+                # Update Fisher EMA: F = α·F + (1-α)·|grad|²
+                with torch.no_grad():
+                    F0 = fisher_alpha * F0 + (1.0 - fisher_alpha) * w0_grad.detach().square()
+                    F1 = fisher_alpha * F1 + (1.0 - fisher_alpha) * w1_grad.detach().square()
+                    F2 = fisher_alpha * F2 + (1.0 - fisher_alpha) * w2_grad.detach().square()
+
+                    # Normalize Fisher to [0, 1] per weight matrix
+                    F0_norm = F0 / (F0.max() + 1e-8)
+                    F1_norm = F1 / (F1.max() + 1e-8)
+                    F2_norm = F2 / (F2.max() + 1e-8)
+
+                    # Inverse importance: 1 - F_norm
+                    inv_imp0 = 1.0 - F0_norm
+                    inv_imp1 = 1.0 - F1_norm
+                    inv_imp2 = 1.0 - F2_norm
+
+                # Debug: log regularization statistics to file
+                with torch.no_grad():
+                    disp0 = (w0_now - w0_anchor).abs()
+                    disp1 = (w1_now - w1_anchor).abs()
+                    disp2 = (w2_now - w2_anchor).abs()
+                    reg0 = (elastic_lambda * inv_imp0 * disp0)
+                    reg1 = (elastic_lambda * inv_imp1 * disp1)
+                    reg2 = (elastic_lambda * inv_imp2 * disp2)
+                    grad0_abs = w0_grad.abs()
+                    grad1_abs = w1_grad.abs()
+                    grad2_abs = w2_grad.abs()
+
+                w0_now = w0_now - elastic_lambda * inv_imp0 * (w0_now - w0_anchor)
+                w1_now = w1_now - elastic_lambda * inv_imp1 * (w1_now - w1_anchor)
+                w2_now = w2_now - elastic_lambda * inv_imp2 * (w2_now - w2_anchor)
+
             # do weight norm here
             w0_now = w0_now / (w0_now.norm(dim=1, keepdim=True) + 1e-5) * w0_norm
             w1_now = w1_now / (w1_now.norm(dim=1, keepdim=True) + 1e-5) * w1_norm
@@ -176,6 +226,12 @@ def fast_weight_swish_glu_weight_norm_mini_batch_apply(
 
             if update:
                 w0, w1, w2 = w0_now, w1_now, w2_now
+
+                # Update Streaming-EMA anchor: θ* = β·θ* + (1-β)·θ
+                if use_elastic:
+                    w0_anchor = anchor_beta * w0_anchor + (1.0 - anchor_beta) * w0.detach()
+                    w1_anchor = anchor_beta * w1_anchor + (1.0 - anchor_beta) * w1.detach()
+                    w2_anchor = anchor_beta * w2_anchor + (1.0 - anchor_beta) * w2.detach()
 
         if apply:
             # Only calculate the output in the last repeat.
@@ -212,12 +268,18 @@ class FastWeightGluMLPMultihead(nn.Module):
         use_o_norm=True,
         base_lr=0.01,
         muon_update_steps=0,
+        elastic_lambda: float = 0.0, # IF turning on, the value should be 0.05
+        fisher_alpha: float = 0.5,
+        anchor_beta: float = 0.8,
     ):
         super().__init__()
         self.dim = dim
         self.head_dim = head_dim
         self.num_heads = dim // head_dim
         self.muon_update_steps = muon_update_steps
+        self.elastic_lambda = elastic_lambda
+        self.fisher_alpha = fisher_alpha
+        self.anchor_beta = anchor_beta
 
         d_in = d_out = self.head_dim
         d_h = int(self.head_dim * inter_multi)
@@ -276,6 +338,9 @@ class FastWeightGluMLPMultihead(nn.Module):
         output, w0, w1, w2 = fast_weight_swish_glu_weight_norm_mini_batch_apply(
             w0, w1, w2, q, k, v, lr0, lr1, lr2, shape_info["ttt_config"],
             muon_update_steps=self.muon_update_steps,
+            elastic_lambda=self.elastic_lambda,
+            fisher_alpha=self.fisher_alpha,
+            anchor_beta=self.anchor_beta,
         )
 
         output = rearrange(

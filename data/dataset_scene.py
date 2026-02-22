@@ -192,7 +192,7 @@ class Dataset(Dataset):
                     image_choices = sorted(image_choices)[:num_input_views * 2] # select the first a few ordered views
                     input_indices = np.array(sorted(random.sample(image_choices, num_input_views))).reshape(-1, self.config.get('sp_size', 1)).flatten(order='F').tolist() # consider the order due to sp
                     image_choices = input_indices + list(set(image_choices) - set(input_indices))
-                elif self.config.model.get('ttt_scan', 'full') in ['miniupdate', 'minibatch']:
+                elif self.config.model.get('ttt_scan', 'full') in ['ar']:
                     input_choices = image_choices[:num_input_views]
                     input_choices = np.array(sorted(input_choices)).reshape(-1, self.config.get('sp_size', 1)).flatten(order='F').tolist()
                     image_choices = input_choices + image_choices[num_input_views:]

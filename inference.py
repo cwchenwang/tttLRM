@@ -150,9 +150,6 @@ if config.inference or config.get("evaluation", False):
         device_type="cuda",
         dtype=torch.bfloat16,
     ):
-        if ddp_rank == 0:
-            print(f"Full evaluation data size: {eval_data_len}, evaluate the first 100 samples")
-        # number_eval_data = min(eval_data_len, 100)
         eval_iters = int(math.ceil(eval_data_len / sp_support.get_sp_replicas()))
 
         for i, batch in enumerate(eval_dataloader):
