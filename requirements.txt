@@ -1,0 +1,25 @@
+rich
+easydict
+kornia
+pyyaml 
+transformers==4.51.3
+wandb 
+nvitop 
+matplotlib
+einops
+lpips
+trimesh
+plotly
+open3d==0.19.0
+numpy==2.2.6
+scikit-image
+opencv-python==4.12.0.88
+packaging==25.0
+pandas==2.3.3
+pillow==12.0.0
+diff_gaussian_rasterization @ git+https://github.com/graphdeco-inria/diff-gaussian-rasterization.git@59f5f77e3ddbac3ed9db93ec2cfe99ed6c5d121d
+gsplat @ git+https://github.com/nerfstudio-project/gsplat@v1.5.0
+jaxtyping
+trimesh==4.10.1
+omegaconf
+plyfile==1.0.3

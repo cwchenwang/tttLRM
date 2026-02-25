@@ -541,6 +541,9 @@ class tttLRM(nn.Module):
                 f.close()
             print(f'uid: {uid}, psnr: {psnr.mean().item()}, ssim: {ssim.mean().item()}, lpips: {lpips.mean().item()}')
 
+            if self.config.get('metrics_only', True):
+                continue
+
             # save images
             input_images_path = os.path.join(scene_dir, "input_images.png")
             input_image = input_images[i].permute(1, 2, 0, 3).flatten(2, 3) # (3, H, Vin*W)
