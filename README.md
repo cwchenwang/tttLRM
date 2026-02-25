@@ -1,6 +1,7 @@
 <h1 align="center">tttLRM: Test-Time Training for Long Context and Autoregressive 3D Reconstruction</h1>
 <p align="center"><a href="https://arxiv.org/abs/2602.20160"><img src='https://img.shields.io/badge/arXiv-Paper-red?logo=arxiv&logoColor=white' alt='arXiv'></a>
 <a href='https://cwchenwang.github.io/tttLRM/'><img src='https://img.shields.io/badge/Project_Page-Website-green?logo=googlechrome&logoColor=white' alt='Project Page'></a>
+<a href='https://huggingface.co/chenwang/tttLRM'><img src='https://img.shields.io/badge/Hugging_Face-Model-F8D44E.svg?logo=huggingface' alt='Model'></a>
 
 ## 📦 Installation
 ```bash
@@ -20,7 +21,7 @@ bash script/download_ckpts.sh
 ```
 
 ## ⚡ Inference
-We use `sp_size` for sequence parallel, which denotes the number of GPUs used for one sequence. Input views and generated Gaussians will be evenly distributed to `sp_size` GPUs.
+We use `sp_size` for sequence parallel, which denotes the number of GPUs used for one sequence. Input views and generated Gaussians will be evenly distributed to `sp_size` GPUs. `sp_size` should be divisible by total number of GPUs you use.
 ```bash
 # For Full model
 bash script/inference_dl3dv.sh
