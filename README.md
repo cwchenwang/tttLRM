@@ -31,6 +31,8 @@ bash script/inference_dl3dv_ar.sh
 We might not provide training code at this moment, but it can be easily done by combining [LongLRM](https://github.com/arthurhero/Long-LRM/blob/main/main.py) and our inference code (the sequence parallel part).
 
 ## 📂 Dataset
+
+### DL3DV Benchmark
 Download DL3DV benchmark (i.e., test; not used in training) data at https://huggingface.co/datasets/DL3DV/DL3DV-Benchmark/tree/main using the following command:
 ```bash
 python data/dl3dv_eval_download.py --odir ./data_example/dl3dv_benchmark --subset hash --only_level4 --hash 032dee9fb0a8bc1b90871dc5fe950080d0bcd3caf166447f44e60ca50ac04ec7
@@ -39,7 +41,18 @@ Use option `--subset full` to download all testing scenes. After downloading, ru
 ```bash
 python data/dl3dv_format_converter.py
 ```
-to convert to our dataset format (OpenCV camera). 
+to convert to our dataset format (OpenCV camera).
+
+### Custom COLMAP Data
+We also support running inference on your own COLMAP reconstructions. First, convert your COLMAP output to our format:
+```bash
+python data/colmap_format_convert.py --source_dir /path/to/colmap_scene --output_dir ./data_example/colmap_processed/scene_name
+```
+The script auto-detects `sparse/0` and `images` directories, handles lens undistortion, and generates `opencv_cameras.json`. It supports both binary and text COLMAP formats. Then run inference:
+```bash
+bash script/inference_colmap.sh
+```
+Since the provided model doesn't trained with multiple resolutions and intrinsics, so it might not work well on custom data.
 
 ## 🤝 Acknowledgements
 Our codebase is a replementation of the internal version. Performance is matched under the same model weights. The code is largely built upon open-source projects including [LongLRM](https://github.com/arthurhero/Long-LRM) and [LaCT](https://github.com/a1600012888/LaCT). We thank the authors for their helpful code.
