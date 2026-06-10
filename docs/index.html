@@ -108,12 +108,6 @@
             <div class="column has-text-centered" style="margin-top: 0; margin-bottom: 0;">
               <div class="publication-links">
                 <div class="btn-group btn-group-sm main-btn-group">
-                  <a target="_blank" rel="noopener noreferrer" href="https://arxiv.org/pdf/2602.20160"><span
-                      class="button is-normal">
-                      <span class="icon"><i class="fas fa-file-pdf"></i></span>&nbsp;&nbsp;
-                      PDF
-                    </span></a>
-                  <span class="btn-separator">|</span>
                   <a target="_blank" rel="noopener noreferrer" href="https://arxiv.org/abs/2602.20160"><span
                       class="button is-normal">
                       <span class="icon"><i class="ai ai-arxiv"></i></span>&nbsp;&nbsp;
@@ -128,6 +122,17 @@
                   <a href="#BibTeX"><span class="button is-normal">
                       <span class="icon"><i class="fas fa-quote-right"></i></span>&nbsp;&nbsp;
                       BibTeX
+                    </span></a>
+                  <span class="btn-separator">|</span>
+                  <a href="./static/poster.pdf" target="_blank"><span class="button is-normal">
+                      <span class="icon"><i class="fas fa-image"></i></span>&nbsp;&nbsp;
+                      Poster
+                    </span></a>
+                  <span class="btn-separator">|</span>
+                  <a href="https://youtu.be/uOlNkq_io4c?si=heGxx_HgHmKRa9XF" target="_blank"><span
+                      class="button is-normal">
+                      <span class="icon"><i class="fab fa-youtube"></i></span>&nbsp;&nbsp;
+                      Video
                     </span></a>
                 </div>
               </div>
@@ -163,14 +168,17 @@
       padding: 1rem;
       z-index: 1000;
     }
+
     #toc-sidebar ul {
       list-style: none;
       margin: 0;
       padding: 0;
     }
+
     #toc-sidebar li {
       margin-bottom: 0.4rem;
     }
+
     #toc-sidebar .toc-link {
       text-decoration: none;
       color: #555;
@@ -180,11 +188,13 @@
       padding: 2px 0;
       transition: color 0.2s;
     }
+
     #toc-sidebar .toc-link:hover,
     #toc-sidebar .toc-link.active {
       color: #3273dc;
       font-weight: 600;
     }
+
     @media (max-width: 1400px) {
       #toc-sidebar {
         display: none;
@@ -192,15 +202,15 @@
     }
   </style>
   <script>
-    document.addEventListener('DOMContentLoaded', function() {
+    document.addEventListener('DOMContentLoaded', function () {
       var tocLinks = document.querySelectorAll('.toc-link');
       var sections = [];
-      tocLinks.forEach(function(link) {
+      tocLinks.forEach(function (link) {
         var id = link.getAttribute('href').substring(1);
         var el = document.getElementById(id);
         if (el) sections.push({ id: id, el: el, link: link });
       });
-      window.addEventListener('scroll', function() {
+      window.addEventListener('scroll', function () {
         var scrollPos = window.scrollY + 120;
         var current = sections[0];
         for (var i = 0; i < sections.length; i++) {
@@ -208,7 +218,7 @@
             current = sections[i];
           }
         }
-        tocLinks.forEach(function(l) { l.classList.remove('active'); });
+        tocLinks.forEach(function (l) { l.classList.remove('active'); });
         if (current) current.link.classList.add('active');
       });
     });
